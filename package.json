@@ -1,0 +1,23 @@
+{
+  "name": "employee-database",
+  "version": "1.0.0",
+  "description": "## Purpose For a business owner to be able to view and manage the departments, roles, and employees in their company, to assist with organizing and planning their business.",
+  "main": "server.js",
+  "scripts": {
+    "test": "jest",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kjjackson619/employee-database.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kjjackson619/employee-database/issues"
+  },
+  "homepage": "https://github.com/kjjackson619/employee-database#readme",
+  "dependencies": {
+    "inquirer": "^8.2.0"
+  }
+}
