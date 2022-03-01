@@ -3,7 +3,7 @@ const router = express.Router();
 const db = require('../../db/connection');
 
 
-app.get('/api/role', (req, res) => {
+router.get('/api/role', (req, res) => {
     const sql = `SELECT * FROM role`;
     db.query(sql, (err, rows) => {
         if (err) {
@@ -17,7 +17,7 @@ app.get('/api/role', (req, res) => {
     });
 });
 
-app.get('/api/role/:id', (req, res) => {
+router.get('/api/role/:id', (req, res) => {
     const sql = `SELECT * FROM role WHERE id = ?`;
     const params = [req.params.id];
     db.query(sql, params, (err, row) => {
@@ -32,7 +32,7 @@ app.get('/api/role/:id', (req, res) => {
     });
 });
 
-app.delete('/api/role/:id', (req, res) => {
+router.delete('/api/role/:id', (req, res) => {
     const sql = `DELETE FROM role WHERE id = ?`;
     const params = [req.params.id];
     db.query(sql, params, (err, result) => {
@@ -50,6 +50,28 @@ app.delete('/api/role/:id', (req, res) => {
             });
         }
     });
+});
+
+router.post('/api/role', ({ body }, res) => {
+
+    const sql = `INSERT INTO role (title, salary, department_id)
+    VALUES(?,?,?)`;
+
+    const params = [body.title, body.salary, body.department_id];
+
+    db.query(sql, params, (err, result) => {
+        if (err) {
+            res.status(400).json({ error: err.message });
+            return;
+
+        }
+        res.json({
+            message: 'success',
+            data: body
+        });
+
+    });
+
 });
 
 module.exports = router;

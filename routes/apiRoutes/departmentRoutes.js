@@ -3,7 +3,7 @@ const router = express.Router();
 const db = require('../../db/connection');
 
 
-app.get('/api/department', (req, res) => {
+router.get('/api/department', (req, res) => {
     const sql = `SELECT * FROM department`;
     db.query(sql, (err, rows) => {
         if (err) {
@@ -17,7 +17,7 @@ app.get('/api/department', (req, res) => {
     });
 });
 
-app.get('/api/department/:id', (req, res) => {
+router.get('/api/department/:id', (req, res) => {
     const sql = `SELECT * FROM department WHERE id = ?`;
     const params = [req.params.id];
     db.query(sql, params, (err, row) => {
@@ -32,7 +32,7 @@ app.get('/api/department/:id', (req, res) => {
     });
 });
 
-app.delete('/api/department/:id', (req, res) => {
+router.delete('/api/department/:id', (req, res) => {
     const sql = `DELETE FROM department WHERE id = ?`;
     const params = [req.params.id];
     db.query(sql, params, (err, result) => {
@@ -50,6 +50,28 @@ app.delete('/api/department/:id', (req, res) => {
             });
         }
     });
+});
+
+router.post('/api/department', ({ body }, res) => {
+
+    const sql = `INSERT INTO department (name)
+    VALUES(?)`;
+
+    const params = [body.name];
+
+    db.query(sql, params, (err, result) => {
+        if (err) {
+            res.status(400).json({ error: err.message });
+            return;
+
+        }
+        res.json({
+            message: 'success',
+            data: body
+        });
+
+    });
+
 });
 
 module.exports = router;
