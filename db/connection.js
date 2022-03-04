@@ -1,6 +1,6 @@
 const mysql = require('mysql2');
 const Sequelize = require('sequelize');
-//require('dotenv').config();
+require('dotenv').config();
 
 
 
@@ -19,11 +19,9 @@ const Sequelize = require('sequelize');
 const db = mysql.createConnection(
     {
         host: 'localhost',
-        // Your MySQL username,
-        user: 'root',
-        // Your MySQL password
-        password: 'B0aHanc0ck1',
-        database: 'employee_data'
+        user: process.env.DB_USER,
+        password: process.env.DB_PW,
+        database: process.env.DB_NAME
     },
 );
 
