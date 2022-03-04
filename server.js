@@ -1,6 +1,8 @@
 const inquirer = require('inquirer');
 const express = require('express')
 const db = require('./db/connection');
+const figlet = require('figlet');
+const cTable = require('console.table');
 //const router = express.Router();
 
 const apiRoutes = require('./routes/apiRoutes');
@@ -30,34 +32,34 @@ function start() {
         }).then((data) => {
             switch (data.action) {
                 case 'View All Employees':
-
+                    viewEmployees();
                     start();
                     break;
 
                 case 'Add Employee':
-                    ;
+                    addEmployee();
                     break;
 
                 case 'Update Employee Role':
-                    ;
+                    updateEmployee();
                     break;
 
                 case 'View All Roles':
-                    ;
+                    viewRoles();
                     start();
                     break;
 
                 case 'Add Role':
-                    ;
+                    addRole();
                     break;
 
                 case 'View All Departments':
-                    ;
+                    viewDepartments();
                     start();
                     break;
 
                 case 'Add Department':
-                    ;
+                    addDepartment();
                     start();
                     break;
 
@@ -80,13 +82,22 @@ app.use((req, res) => {
 
 db.connect(err => {
     if (err) throw err;
+    figlet('Employee Database', function (err, data) {
+        if (err) {
+            console.log('art not loaded');
+        }
+        else {
+            console.log(data);
+        }
+    })
     console.log('Database connected');
     app.listen(PORT, () => {
         console.log(`Server running on port ${PORT}`);
     });
+    start();
 });
 
 
-start();
+
 
 
