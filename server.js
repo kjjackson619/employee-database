@@ -1,6 +1,7 @@
 const inquirer = require('inquirer');
 const express = require('express')
-const sequelize = require('./db/connection');
+const db = require('./db/connection');
+//const router = express.Router();
 
 const apiRoutes = require('./routes/apiRoutes');
 
@@ -11,11 +12,10 @@ const app = express();
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+
 app.use('/api', apiRoutes);
 
-let employee = ('./routes/apiRoutes/employeeRoutes');
-let role = ('./routes/apiRoutes/roleRoutes');
-let department = ('./routes/apiRoutes/departmentRoutes');
+
 
 function start() {
     let question = 'What would you like to do?';
@@ -30,40 +30,43 @@ function start() {
         }).then((data) => {
             switch (data.action) {
                 case 'View All Employees':
-                    employee.printEmployee();
+
                     start();
                     break;
 
                 case 'Add Employee':
-                    addEmployee();
+                    ;
                     break;
 
                 case 'Update Employee Role':
-                    updateEmployeeRole();
+                    ;
                     break;
 
                 case 'View All Roles':
-                    role.printRoles();
+                    ;
                     start();
                     break;
 
                 case 'Add Role':
-                    addRole();
+                    ;
                     break;
 
                 case 'View All Departments':
-                    department.printDepartments();
+                    ;
                     start();
                     break;
 
                 case 'Add Department':
+                    ;
+                    start();
+                    break;
+
                 case 'Exit':
                     console.log("Changes made, thank you for accessing database. Goodbye!");
                     break;
 
                 default:
                     console.log(`Action (${data.action}) is not supported.`);
-                    start();
                     break;
 
             }
@@ -71,18 +74,19 @@ function start() {
 }
 
 
-
 app.use((req, res) => {
     res.status(404).end();
 });
 
-// db.connect(err => {
-//     if (err) throw err;
-//     console.log('Database connected');
-//     app.listen(PORT, () => {
-//         console.log(`Server running on port ${PORT}`);
-//     });
-// });
+db.connect(err => {
+    if (err) throw err;
+    console.log('Database connected');
+    app.listen(PORT, () => {
+        console.log(`Server running on port ${PORT}`);
+    });
+});
 
 
 start();
+
+

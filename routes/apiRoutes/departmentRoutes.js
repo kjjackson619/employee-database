@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../../db/connection');
+const inputCheck = require('../../utils/inputCheck');
 
 
-router.get('/api/department', (req, res) => {
+router.get('/department', (req, res) => {
     const sql = `SELECT * FROM department`;
     db.query(sql, (err, rows) => {
         if (err) {
@@ -17,7 +18,7 @@ router.get('/api/department', (req, res) => {
     });
 });
 
-router.get('/api/department/:id', (req, res) => {
+router.get('/department/:id', (req, res) => {
     const sql = `SELECT * FROM department WHERE id = ?`;
     const params = [req.params.id];
     db.query(sql, params, (err, row) => {
@@ -32,7 +33,7 @@ router.get('/api/department/:id', (req, res) => {
     });
 });
 
-router.delete('/api/department/:id', (req, res) => {
+router.delete('/department/:id', (req, res) => {
     const sql = `DELETE FROM department WHERE id = ?`;
     const params = [req.params.id];
     db.query(sql, params, (err, result) => {
@@ -52,7 +53,7 @@ router.delete('/api/department/:id', (req, res) => {
     });
 });
 
-router.post('/api/department', ({ body }, res) => {
+router.post('/department', ({ body }, res) => {
 
     const sql = `INSERT INTO department (name)
     VALUES(?)`;

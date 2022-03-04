@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../../db/connection');
+const inputCheck = require('../../utils/inputCheck');
 
 
-router.get('/api/employee', (req, res) => {
+router.get('/employee', (req, res) => {
     const sql = `SELECT employee.*, role.title
     AS role_title
     FROM employee
@@ -25,7 +26,8 @@ router.get('/api/employee', (req, res) => {
 
 
 
-router.get('/api/employee/:id', (req, res) => {
+
+router.get('/employee/:id', (req, res) => {
     const sql = `SELECT employee.*, role.title
     AS role_title
     FROM employee
@@ -51,7 +53,7 @@ router.get('/api/employee/:id', (req, res) => {
 
 
 
-router.delete('/api/employee/:id', (req, res) => {
+router.delete('/employee/:id', (req, res) => {
 
     const sql = `DELETE FROM employee WHERE id = ?`;
     const params = [req.params.id];
@@ -76,7 +78,7 @@ router.delete('/api/employee/:id', (req, res) => {
 });
 
 
-router.post('/api/employee', ({ body }, res) => {
+router.post('/employee', ({ body }, res) => {
 
     const sql = `INSERT INTO employee (first_name, last_name, role_id, manager_id)
     VALUES(?,?,?,?)`;
@@ -98,7 +100,7 @@ router.post('/api/employee', ({ body }, res) => {
 
 });
 
-router.put('/api/employee/:id', (req, res) => {
+router.put('/employee/:id', (req, res) => {
 
     const sql = `UPDATE employee SET role_id = ?
     WHERE id = ?`;
@@ -120,6 +122,7 @@ router.put('/api/employee/:id', (req, res) => {
         }
     });
 });
+
 
 
 module.exports = router;
